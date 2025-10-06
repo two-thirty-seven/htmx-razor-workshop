@@ -1,6 +1,6 @@
 ﻿@page "/BulkUpdate"
 @using htmx_examples_blazor.Pages.BulkUpdate
-@inject IContactService service;
+@inject IContactService ContactService;
 
 <PageTitle>Bulk Update</PageTitle>
 
@@ -9,7 +9,7 @@
     <button class="btn btn-primary btn-icon-split" hx-put="/BulkUpdate/Deactivate">Deactivate</button>
 </div>
 
-@if (ContactTableRows != null && ContactTableRows.Count() > 0)
+@if (_contactTableRows != null && _contactTableRows?.Count() > 0)
 {
     <form id="checked-contacts">
         <AntiforgeryToken />
@@ -24,17 +24,17 @@
             </thead>
 
             <tbody id="tbody">
-            <TableBody Model="ContactTableRows" />
+            <TableBody Model="_contactTableRows" />
             </tbody>
         </table>
     </form>
 }
 
 @code {
-    private List<Contact>? ContactTableRows = [];
+    private List<Contact>? _contactTableRows = [];
 
     protected override void OnInitialized()
     {
-        ContactTableRows = service.Get().ToList();
+        _contactTableRows = ContactService.Get().ToList();
     }
 }
