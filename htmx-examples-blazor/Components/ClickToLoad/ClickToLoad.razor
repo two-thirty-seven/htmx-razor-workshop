@@ -1,0 +1,24 @@
+﻿@page "/ClickToLoad"
+
+<PageTitle>ClickToLoad</PageTitle>
+
+<table>
+    <thead>
+    <tr>
+        <th>Name</th><th>Email</th>
+    </tr>
+    </thead>
+    <tbody>
+        <ClickToLoadButton Model="_contacts" CurrentPage="Page"></ClickToLoadButton>
+    </tbody>
+</table>
+
+@code {
+    private const int Page = 0;
+    private List<Contact>? _contacts = [];
+
+    protected override void OnInitialized()
+    {
+        _contacts = ClickToLoadEndpoints.GetPagedResults(0, ClickToLoadEndpoints.PageCount).ToList();
+    }
+}

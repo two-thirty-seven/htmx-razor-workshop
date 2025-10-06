@@ -1,0 +1,27 @@
+﻿@if (Model?.Count > 0)
+{
+    foreach (var c in Model)
+    {
+        <tr>
+            <td>@c.Name</td><td>@c.Email</td>
+        </tr>
+    }
+}
+
+<tr id="replaceMe">
+    <td colspan="3">
+        <button class='btn' hx-get="/ClickToload/@(CurrentPage + 1)"
+                hx-target="#replaceMe"
+                hx-swap="outerHTML">
+            Load More Woodys... <img class="htmx-indicator" src="/img/bars.svg">
+        </button>
+    </td>
+</tr>
+
+@code {
+    [Parameter] 
+    public List<Contact>? Model { get; set; }
+
+    [Parameter] 
+    public int CurrentPage { get; set; }
+}
